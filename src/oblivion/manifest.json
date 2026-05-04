@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "oblivion",
+  "short_name": "oblivion",
+  "version": "1.0.0",
+  "description": "Automatically removes Chrome download history entries older than 1 hour. Does not delete files from disk.",
+  "permissions": ["downloads", "alarms"],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "action": {
+    "default_title": "oblivion"
+  }
+}
