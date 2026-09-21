@@ -1,7 +1,11 @@
-.PHONY: beautiful build clean jacobus py311 py312 reset sort_json zip
+.PHONY: beautiful black build clean isort jacobus py311 py312 reset sort_json zip
 SHELL := /bin/zsh
 
-beautiful: sort_json jacobus
+beautiful: sort_json isort black jacobus
+
+black: py311
+	conda run -n py311 pip install 'black>=24.5,<26';
+	conda run -n py311 black --line-length=79 . ;
 
 build: beautiful clean dist/oblivion.zip
 
@@ -14,6 +18,10 @@ dist:
 
 dist/oblivion.zip: | dist
 	cd src/oblivion && zip -rq ../../dist/oblivion.zip . -x ".*" "*/.*"
+
+isort: py311
+	conda run -n py311 pip install 'isort>=6.0,<7';
+	conda run -n py311 isort . ;
 
 jacobus: py311
 	conda run -n py311 pip install 'jacobus>=2.2,<3';
